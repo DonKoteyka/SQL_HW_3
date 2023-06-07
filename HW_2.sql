@@ -7,7 +7,7 @@ CONSTRAINT check_age_1 CHECK (year > '1984')
 );
 create table if not exists soundtrack (
 id SERIAL PRIMARY KEY,
-name varchar(50) not null,
+name varchar(50) UNIQUE not null,
 time integer,
 -- for time use seconds but no more then 600 seconds
 album_id integer references album(id),
