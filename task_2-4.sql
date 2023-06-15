@@ -26,29 +26,39 @@ SELECT name from soundtrack
 WHERE string_to_array (lower(name), ' ') 
 && ARRAY['my %', '% my', '% my %', 'my', '% мой', '% мой %', 'мой', 'мой %']; 
 
+--2
+SELECT name from soundtrack
+WHERE "name"  ~* '\mmy ' or "name"  ~* '\mмой ';
 
 
 --Задание 3
 --    Количество исполнителей в каждом жанре.
-select type, count(nickname) from genre as g 
-join singergenre as s on g.id = s.genreid 
-join singer as s2 on s.singerid = s2.id 
-group by g.type;
+	select type, count(nickname) from genre as g 
+	join singergenre as s on g.id = s.genreid 
+	join singer as s2 on s.singerid = s2.id 
+	group by g.type;
 --    Количество треков, вошедших в альбомы 2019–2020 годов.
-select coll.year, count(s4.name) from collection as coll 
-join soundtrackcollection as s3  on coll.id = s3.collectionid  
-join soundtrack as s4 on s3.soundtrackid  = s4.id 
-where coll.year between 2019 and 2020
-group by coll.year
+
+SELECT COUNT(s4.id) FROM soundtrack as s4
+join album as a1 on s4.album_id = a1.id 
+where a1."year" between 2019 and 2020;
+
 --    Средняя продолжительность треков по каждому альбому.
 select a.name, avg(s5.time) from album a
 join soundtrack as s5 on s5.album_id = a.id
 group by a.name;
 --    Все исполнители, которые не выпустили альбомы в 2020 году.
-select distinct nickname from singer si1
-join singeralbum as s6 on s6.singerid = si1.id
-join album as a on s6.albumid = a.id
-where a.year !=2020 ;
+
+SELECT nickname FROM singer as si
+WHERE nickname NOT IN (
+    SELECT nickname 
+    FROM singer 
+    JOIN singeralbum as sa ON si.id = sa.singerid 
+    JOIN album as al ON al.id = sa.albumid 
+    WHERE al.year = 2020 
+);
+
+
 --    Названия сборников, в которых присутствует конкретный исполнитель (выберите его сами).
 select distinct coll.name, nickname from singer si1
 join singeralbum as s6 on s6.singerid = si1.id

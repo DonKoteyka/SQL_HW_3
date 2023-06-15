@@ -41,3 +41,14 @@ INSERT INTO soundtrackcollection (soundtrackid, collectionid)
 values (3,1),(9,1),(13,1),(7,1),(11,2),(13,2),(2,2),(63,2),
 (4,3),(5,3), (4,4), (5,4), (10, 5);
 
+
+-- дополнительные данные 
+INSERT INTO album(name, year)
+values ('Killection', '2020');
+
+INSERT INTO soundtrack (name, time, album_id)
+values ('Radio SCG 10', '83', 11), ('Horror for Hire', '202', 11), ('Shake the Baby Silent', '216', 11), ('Like a Bee to the Honey', '253', 11), ('Apollyon', '311', 11), ('SCG10 The Last Hour', '91', 11), ('Blow My Fuse', '211', 11), ('I Dug a Hole in the Yard for You', '251', 11), 
+('Zombimbo', '293', 11), ('Up to No Good', '238', 11), ('SCG10 Demonic Semitones', '80', 11), ('Cutterfly', '260', 11), ('Evil', '274', 11), ('Scream Demon', '278', 11), ('SCG10 I Am Here', '111', 11);
+
+INSERT INTO singeralbum (singerid, albumid)
+values (7, 11);
